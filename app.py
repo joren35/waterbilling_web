@@ -154,21 +154,16 @@ def settings_con():
                            lastname=str(session['lastname']), mobile=str(session['mobile_num']),curuser=session['user'])
 
 @app.after_request
-def add_cors(resp):
-    resp.headers['Access-Control-Allow-Origin'] = flask.request.headers.get('Origin', '*')
-    resp.headers['Access-Control-Allow-Credentials'] = True
-    resp.headers['Access-Control-Allow-Methods'] = 'POST, OPTIONS, GET, PUT, DELETE'
-    resp.headers['Access-Control-Allow-Headers'] = flask.request.headers.get('Access-Control-Request-Headers',
-                                                                             'Authorization')
-    # set low for debugging
-
-    if app.debug:
-        resp.headers["Access-Control-Max-Age"] = '1'
-    return resp
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Access-Control-Allow-Credentials', True)
+    return response
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
     # app.debug=False
     # port = int(os.environ.get("PORT", 5000))
     # app.run(host='0.0.0.0', port=port)
