@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Welcome!</title>
+
+
+    <!-- Bootstrap core CSS-->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="../static/css2/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="../static/css/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../static/css/sb-admin.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/style2.css">
+
+
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="index.html"><strong> Water Billing </strong></a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navbar -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item" style="margin-top: 8px; color: white;">
+            Welcome, {{ firstname }} {{ lastname }}
+        </li>
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle fa-fw"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="{{ url_for('.settings_con') }}">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            </div>
+        </li>
+    </ul>
+
+</nav>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.consumer_dash') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.bill_month') }}">
+                <i class="fas fa-fw fa-history"></i>
+                <span>Bill History</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('.settings_con') }}">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Settings</span></a>
+        </li>
+    </ul>
+
+    <div id="content-wrapper">
+        <div class="panel-heading">
+            <strong> Bill Details</strong>
+        </div>
+
+        <div class="container" style="margin-left: 3%;">
+            <div class="row">
+                <div class="col-md-6" style="background-color: #D5DBDB; height: 450px;">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            {% for i in b_info %}
+                                <h5 class="modal-title1" style="font-weight: bold">TOTAL AMOUNT DUE</h5>
+                                <div class="container">
+                                    <div class="row" style="opacity: 0.5">
+                                        <h6> &nbsp; &nbsp;{{ i.amount }} - this month's bill</h6>
+                                    </div>
+                                    <div class="row" style="border-bottom: solid; opacity: 0.5">
+                                        <h6>+ {{ i.arrears }} - arrears</h6>
+                                    </div>
+                                    <div class="row">
+                                        <h4 id="total_amount">₱{{ i.total_amount }}</h4>
+                                    </div>
+                                </div>
+
+                                <h5 style="font-weight: bold; margin-top: 5%">Cubic Meter Used</h5>
+                                <div class="input-group mb-6">
+                                    <div class="input-group-prepend">
+                                        <span id="basic-addon3">{{ i.used_cm }}</span>
+                                    </div>
+                                </div>
+
+                                <h5 style="font-weight: bold; margin-top: 5%">Reading</h5>
+                                <div class="input-group mb-6">
+                                    <div class="input-group-prepend">
+                                        <span id="basic-addon3">{{ i.reading }}</span>
+                                    </div>
+                                </div>
+
+                                <h5 style="font-weight: bold; margin-top: 5%">Arrears</h5>
+                                <div class="input-group mb-6">
+                                    <div class="input-group-prepend">
+                                        <span id="basic-addon3">₱{{ i.arrears }}</span>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <h5 class="modal-title1" style="font-weight: bold">DUE DATE</h5>
+                                    <div class="input-group1 mb-6">
+                                        <h3>{{ i.due_date }}</h3>
+                                    </div>
+
+                                    <h5 class="modal-title1" style="font-weight: bold">DATE ISSUED</h5>
+                                    <div class="input-group1 mb-6">
+                                        <h3>{{ i.date_issued }}</h3>
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+
+                                <div class=" col-md-4" style="background-color: #D5DBDB;">
+                                <!-- <div class="row col-lg-12"> -->
+                                <h5 class="modal-title1" style="font-weight: bold">ACCOUNT INFORMATION</h5>
+                                <div class="input-group1 mb-6">
+                                    <div class="input-group-prepend">
+                                        <!-- <span id="basic-addon3">Dec 21, 2018</span> -->
+                                    </div>
+                                </div>
+
+                                <h5 class="modal-title1">Status</h5>
+                                <div class="input-group-prepend">
+                                    {% if i.status == 'Good' %}
+                                        <h3><span id="status_id" class="text-success">{{ i.status }}</span></h3>
+                                    {% elif i.status == 'Disconnection' %}
+                                        <h3><span id="status_id" class="text-danger">{{ i.status }}</span></h3>
+                                    {% endif %}
+                                </div>
+                                <h5 class="modal-title1">Payment Status</h5>
+                                <div class="input-group-prepend">
+                                    {% if i.payment_status == 'Paid' %}
+                                        <h3><span id='warnings' class='text-success'>{{ i.payment_status }}</span></h3>
+                                    {% elif i.payment_status == 'Unpaid' %}
+                                        <h3><span id='warnings' class='text-warning'>{{ i.payment_status }}</span></h3>
+                                    {% else %}
+                                        <h3><span id='warnings' class='text-danger'>{{ i.status }}</span></h3>
+                                    {% endif %}
+                                </div>
+                                <h5 class="modal-title1">You have {{ i.unpaid_count }} unpaid bills!</h5>
+                            {% endfor %}
+                            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{{ url_for('.logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- warning modal -->
+<div class="modal fade" id="warning_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Urgent Notification</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+            {% for i in b_info %}
+                <h4 style="color: red">[WARNING]</h4> Your current status is for DISCONNECTION please settle the amount
+                of ₱{{ i.total_amount }} to avoid disconnection of your water source. Thank you <br> <br style="margin-left: 20px"> -DFRAS WaterBilling System
+            {% endfor %}
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">I understand</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--table-->
+
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="../static/js/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="../static/js/sb-admin.min.js"></script>
+<!--Tabulator extensions CSS-->
+<script type="text/javascript" src="../static/js/moment.js"></script>
+
+<script>
+    {% for i in b_info %}
+    var unpaid_count ={{ i.unpaid_count }};
+    var status ='{{ i.status }}';
+    var amount ={{ i.total_amount }};
+    {% endfor %}
+</script>
+<script type="text/javascript" src="../static/js/modal_dash.js"></script>
+</body>
+</html>

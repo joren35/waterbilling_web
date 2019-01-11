@@ -1,0 +1,85 @@
+body {
+  background-image: url('../image/water.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.jumbotron {
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 20px;
+  background: #f8f8f8 ;
+}
+
+.column {
+  padding-left: 5%;
+  padding-right: 15%;
+}
+
+.column-item {
+  margin-bottom: 10px;
+}
+
+.dashboard-table {
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.tabulator .tabulator-col-title {
+  text-align: center;
+}
+
+
+.panel-heading {
+  color: white;
+  font-size: 25px;
+  margin-left: 40px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+.luh {
+  font-size: 20px;
+}
+
+.col-md-4 {
+  margin-left: 10px;
+}
+
+.modal-title1{
+  margin-top: 40px;
+  font-size: 20px;
+}
+
+.modal-titlee {
+  margin-top: 60px;
+  font-size: 20px;
+}
+
+.modal-titleee {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.modal-titleeee {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+
+.input-group1 {
+  font-size: 45px;
+}
+
+.status1 {
+  margin-left: 20px;
+  font-size: 10px;
+}
+
+#activation_code {
+  margin-top: 14px;
+  margin-left: 5px;
+}
+
+#activation_key {
+  margin-top: 9px;
+}

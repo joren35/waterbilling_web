@@ -1,0 +1,20 @@
+body{
+	/*background-image: url("../image/water2.jpg");*/
+}
+
+.form-control-borderless {
+    border: none;
+}
+
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.dashboard-table{
+	margin-left: 10%;
+	margin-right: 50%;
+	margin-top: 3%;
+	width: 80%;
+}
