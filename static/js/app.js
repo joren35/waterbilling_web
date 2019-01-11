@@ -12,7 +12,7 @@ function login() {
     const password = $('input#password').val();
     $.ajax
     ({
-        url: "https://waterbilling-dfras.herokuapp.com/login",
+        url: "http://127.0.0.1:5000/login",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({
             'username': username,
@@ -49,7 +49,7 @@ function register() {
     const mobile = $('input#mobile').val();
     $.ajax
     ({
-        url: "https://waterbilling-dfras.herokuapp.com/register",
+        url: "http://127.0.0.1:5000/register",
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify({
             'rusername': rusername,
