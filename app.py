@@ -97,7 +97,7 @@ def logout():
     session.pop('lastname', None)
     session.pop('admin_prev', None)
     session.pop('mobile_num', None)
-    return render_template('index.html')
+    return redirect(url_for('index'))
 
 
 @app.route('/login', methods=['POST'])
